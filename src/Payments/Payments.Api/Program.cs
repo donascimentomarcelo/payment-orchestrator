@@ -1,10 +1,56 @@
+using MassTransit;
+using Microsoft.EntityFrameworkCore;
+using Payments.Domain;
+using Payments.Domain.Entities;
+using Payments.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+// DB
+builder.Services.AddDbContext<PaymentsDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PaymentsDb")));
+
+// Kafka
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingInMemory(); // fallback local
+    x.AddRider(rider =>
+    {
+        rider.UsingKafka((ctx, k) =>
+        {
+            k.Host("localhost:9092");
+        });
+    });
+});
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.MapPost("/payments", async (PaymentRequest req, PaymentsDbContext db) =>
+{
+    var payment = new Payment(req.Amount, req.Currency);
+    db.Payments.Add(payment);
+
+    db.Outbox.Add(new OutboxMessage
+    {
+        Id = Guid.NewGuid(),
+        Type = nameof(Payment),
+        Payload = System.Text.Json.JsonSerializer.Serialize(new
+        {
+            payment.Id,
+            payment.Amount,
+            payment.Currency,
+            payment.Status,
+        }),
+    });
+
+    await db.SaveChangesAsync();
+    return Results.Created($"/payments/{payment.Id}", payment);
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -14,28 +60,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+record PaymentRequest(decimal Amount, string Currency);
