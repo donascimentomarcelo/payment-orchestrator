@@ -1,0 +1,11 @@
+{
+  "printWidth": 100,
+  "indentSize": 4,
+  "useTabs": false,
+  "include": "**/*.cs",
+  "exclude": [
+    "**/bin/**",
+    "**/obj/**",
+    "**/node_modules/**"
+  ]
+}
