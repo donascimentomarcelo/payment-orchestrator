@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments.Domain", "src\Paym
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments.Infrastructure", "src\Payments\Payments.Infrastructure\Payments.Infrastructure.csproj", "{8B31BB5E-870F-41AB-A23A-9FE4003B6BD5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks", "src\BuildingBlocks\BuildingBlocks.csproj", "{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,18 @@ Global
 		{8B31BB5E-870F-41AB-A23A-9FE4003B6BD5}.Release|x64.Build.0 = Release|Any CPU
 		{8B31BB5E-870F-41AB-A23A-9FE4003B6BD5}.Release|x86.ActiveCfg = Release|Any CPU
 		{8B31BB5E-870F-41AB-A23A-9FE4003B6BD5}.Release|x86.Build.0 = Release|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Debug|x64.Build.0 = Debug|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Debug|x86.Build.0 = Debug|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Release|x64.ActiveCfg = Release|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Release|x64.Build.0 = Release|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Release|x86.ActiveCfg = Release|Any CPU
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,5 +97,6 @@ Global
 		{3A7EA264-4D43-4331-BD5B-D52243873879} = {FF0E3929-CBDF-D101-A636-4697F11DEC78}
 		{9B57596A-A6DA-459D-A6FB-0506D02CCFEB} = {FF0E3929-CBDF-D101-A636-4697F11DEC78}
 		{8B31BB5E-870F-41AB-A23A-9FE4003B6BD5} = {FF0E3929-CBDF-D101-A636-4697F11DEC78}
+		{C918F5B6-8D00-4C90-8EBF-2A84EFA09E60} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal

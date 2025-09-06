@@ -1,4 +1,7 @@
 
+# Run
+
+dotnet run --project src/Payments/Payments.Api
 
 # Criar Tópico Kafka
 
