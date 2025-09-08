@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Payments.Api.Publisher;
 using Payments.Application.Abstractions;
 using Payments.Application.UseCases.CreatePayment;
+using Payments.Infrastructure.Outbox;
 using Payments.Infrastructure.Persistence;
 using Payments.Infrastructure.Repositories;
 
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<PaymentsDbContext>(options =>
 builder.Services.AddScoped<ICreatePaymentUseCase, CreatePaymentUseCase>();
 builder.Services.AddScoped<IPaymentRepository, EfPaymentRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IOutboxWriter, EfOutboxWriter>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
