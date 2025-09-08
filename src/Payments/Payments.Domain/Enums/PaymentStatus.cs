@@ -1,11 +1,4 @@
 namespace Payments.Domain
 {
-    public enum PaymentStatus
-    {
-        Created,
-        Processing,
-        Completed,
-        Failed,
-        Cancelled,
-    }
+    public enum PaymentStatus { Requested = 0, Authorized = 1, Captured = 2, Failed = 3 }
 }

@@ -26,3 +26,9 @@ docker exec -it redpanda rpk topic create payments.requested payments.provider.c
   --project src/Payments/Payments.Infrastructure \
   --startup-project src/Payments/Payments.Api \
   -c PaymentsDbContext
+
+# Add dependencia
+
+dotnet add src/Payments/Payments.Api/Payments.Api.csproj reference src/Payments/Payments.Domain/Payments.Domain.csproj
+dotnet add src/Payments/Payments.Application/Payments.Application.csproj reference src/Payments/Payments.Domain/Payments.Domain.csproj
+dotnet add src/Payments/Payments.Infrastructure/Payments.Infrastructure.csproj reference src/Payments/Payments.Domain/Payments.Domain.csproj

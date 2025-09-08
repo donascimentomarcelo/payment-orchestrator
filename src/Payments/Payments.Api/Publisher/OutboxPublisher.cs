@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using BuildingBlocks.Messaging;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Payments.Infrastructure;
+using Payments.Infrastructure.Persistence;
 using Polly;
 
 namespace Payments.Api.Publisher
 {
     public class OutboxPublisher : BackgroundService
     {
-
         private readonly ILogger<OutboxPublisher> _logger;
         private readonly IServiceProvider _sp;
 
@@ -31,7 +30,8 @@ namespace Payments.Api.Publisher
                 .Handle<Exception>()
                 .WaitAndRetryForeverAsync(
                     attempt => TimeSpan.FromSeconds(Math.Min(30, Math.Pow(2, attempt))),
-                    (ex, ts) => _logger.LogWarning(ex, "Retrying outbox publish in {Delay}", ts));
+                    (ex, ts) => _logger.LogWarning(ex, "Retrying outbox publish in {Delay}", ts)
+                );
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -43,10 +43,12 @@ namespace Payments.Api.Publisher
 
                         var db = scope.ServiceProvider.GetRequiredService<PaymentsDbContext>();
                         // ✅ Resolva o producer DENTRO do escopo
-                        var producer = scope.ServiceProvider.GetRequiredService<ITopicProducer<PaymentRequested>>();
+                        var producer = scope.ServiceProvider.GetRequiredService<
+                            ITopicProducer<PaymentRequested>
+                        >();
 
-                        var batch = await db.Outbox
-                            .Where(o => !o.Published)
+                        var batch = await db
+                            .Outbox.Where(o => !o.Published)
                             .OrderBy(o => o.CreatedAt)
                             .Take(50)
                             .ToListAsync(stoppingToken);
@@ -62,7 +64,9 @@ namespace Payments.Api.Publisher
                             switch (msg.Type)
                             {
                                 case nameof(PaymentRequested):
-                                    var evt = JsonSerializer.Deserialize<PaymentRequested>(msg.Payload)!;
+                                    var evt = JsonSerializer.Deserialize<PaymentRequested>(
+                                        msg.Payload
+                                    )!;
                                     await producer.Produce(evt, stoppingToken);
                                     msg.Published = true;
                                     break;
@@ -90,6 +94,5 @@ namespace Payments.Api.Publisher
 
             _logger.LogInformation("OutboxPublisher stopped");
         }
-
     }
 }

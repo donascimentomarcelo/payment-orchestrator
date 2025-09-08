@@ -17,10 +17,12 @@ namespace Payments.Domain
 
         public Payment(decimal amount, string currency)
         {
+            if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount));
+            if (string.IsNullOrWhiteSpace(currency) || currency.Length != 3) throw new ArgumentException("Currency must be 3 letters.", nameof(currency));
+
             Id = Guid.NewGuid();
             Amount = amount;
-            Currency = currency;
-            Status = PaymentStatus.Created;
+            Currency = currency.ToUpperInvariant();
             CreatedAt = DateTime.UtcNow;
         }
     }
