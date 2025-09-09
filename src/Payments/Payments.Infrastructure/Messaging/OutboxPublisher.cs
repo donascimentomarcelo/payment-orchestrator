@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 using BuildingBlocks.Messaging;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Payments.Infrastructure.Persistence;
 using Polly;
 
-namespace Payments.Api.Publisher
+namespace Payments.Infrastructure.Messaging
 {
-    public class OutboxPublisher : BackgroundService
+    public class OutboxPublisher(ILogger<OutboxPublisher> logger, IServiceProvider sp)
+        : BackgroundService
     {
-        private readonly ILogger<OutboxPublisher> _logger;
-        private readonly IServiceProvider _sp;
-
-        public OutboxPublisher(ILogger<OutboxPublisher> logger, IServiceProvider sp)
-        {
-            _logger = logger;
-            _sp = sp;
-        }
+        private readonly ILogger<OutboxPublisher> _logger = logger;
+        private readonly IServiceProvider _sp = sp;
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {

@@ -1,9 +1,8 @@
-using BuildingBlocks.Messaging;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Payments.Api.Publisher;
 using Payments.Application.Abstractions;
 using Payments.Application.UseCases.CreatePayment;
+using Payments.Infrastructure.Messaging;
 using Payments.Infrastructure.Outbox;
 using Payments.Infrastructure.Persistence;
 using Payments.Infrastructure.Repositories;
@@ -18,7 +17,24 @@ builder.Services.AddDbContext<PaymentsDbContext>(options =>
     )
 );
 
-// builder.Services.AddHostedService<OutboxPublisher>();
+builder.Services.AddMassTransit(x =>
+{
+    x.SetKebabCaseEndpointNameFormatter();
+
+    x.UsingInMemory((ct, cf) => { });
+    x.AddRider(rider =>
+    {
+        rider.AddProducer<BuildingBlocks.Messaging.PaymentRequested>("payments.requested");
+        rider.UsingKafka(
+            (ctx, k) =>
+            {
+                k.Host("localhost:19092");
+            }
+        );
+    });
+});
+
+builder.Services.AddHostedService<OutboxPublisher>();
 
 builder.Services.AddScoped<ICreatePaymentUseCase, CreatePaymentUseCase>();
 builder.Services.AddScoped<IPaymentRepository, EfPaymentRepository>();

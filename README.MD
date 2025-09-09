@@ -15,7 +15,7 @@ docker exec -it redpanda rpk topic create payments.requested payments.provider.c
 - docker exec -it postgres sh
 - psql -h localhost -U payments -d paymentsdb
 
-# Executar migrations
+# EF Core Migration
 
 - dotnet tool install --global dotnet-ef
 - dotnet ef migrations add Init \

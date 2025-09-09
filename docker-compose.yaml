@@ -17,26 +17,52 @@ services:
     image: redpandadata/redpanda:latest
     container_name: redpanda
     command:
-      - redpanda start
+      - redpanda
+      - start
       - --overprovisioned
-      - --smp 1
-      - --memory 1G
-      - --reserve-memory 0M
-      - --node-id 0
+      - --smp
+      - "1"
+      - --memory
+      - 1G
+      - --reserve-memory
+      - 0M
+      - --node-id
+      - "0"
       - --check=false
+      - --kafka-addr
+      - internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr
+      - internal://redpanda:9092,external://localhost:19092
     ports:
-      - "9092:9092"
+      - "9092:9092" # listener interno (para outros containers)
+      - "19092:19092" # listener externo (para clientes no host)
       - "9644:9644"
     volumes:
       - redpanda_data:/var/lib/redpanda/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "bash",
+          "-c",
+          "rpk cluster info --brokers=localhost:19092 || exit 1",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    depends_on:
+      redpanda:
+        condition: service_healthy
     ports:
       - "8082:8080"
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: redpanda:9092
+      # (opcional) se tiver Schema Registry/Pandaproxy, configure aqui
 
 volumes:
   postgres_data:
