@@ -40,7 +40,6 @@ namespace Payments.Infrastructure.Messaging
                         using var scope = _sp.CreateScope();
 
                         var db = scope.ServiceProvider.GetRequiredService<PaymentsDbContext>();
-                        // ✅ Resolva o producer DENTRO do escopo
                         var producer = scope.ServiceProvider.GetRequiredService<
                             ITopicProducer<PaymentRequested>
                         >();
@@ -71,7 +70,7 @@ namespace Payments.Infrastructure.Messaging
 
                                 default:
                                     _logger.LogWarning("Unknown outbox Type: {Type}", msg.Type);
-                                    msg.Published = true; // ou manter false para investigar
+                                    msg.Published = true;
                                     break;
                             }
                         }
