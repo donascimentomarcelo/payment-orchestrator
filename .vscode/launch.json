@@ -5,19 +5,15 @@
       "name": "Debug Payments.Api",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
       "program": "${workspaceFolder}/src/Payments/Payments.Api/bin/Debug/net9.0/Payments.Api.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/Payments/Payments.Api",
-      "console": "integratedTerminal",
+      "preLaunchTask": "build",
+      "justMyCode": true,
+      "requireExactSource": false,
       "stopAtEntry": false,
-      "env": {
-        "DOTNET_USE_POLLING_FILE_WATCHER": "1",
-        "DOTNET_HOST_PATH": "dotnet",
-        "DOTNET_RUNNING_IN_CONTAINER": "false",
-        "DOTNET_USE_NATIVE_TOOLCHAIN": "false",
-        "DOTNET_STARTUP_HOOKS": ""
-      }
+      "console": "integratedTerminal",
+      "logging": { "moduleLoad": true }
     }
   ]
 }
