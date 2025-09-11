@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using BuildingBlocks.Messaging;
 using Payments.Application.Abstractions;
 using Payments.Domain;
 using Payments.Infrastructure.Outbox;
@@ -25,14 +26,12 @@ namespace Payments.Application.UseCases.CreatePayment
 
             await _repo.AddAsync(payment, ct);
 
-            var evt = new
-            {
-                Type = "PaymentRequested",
+            var evt = new PaymentRequested(
                 payment.Id,
                 payment.Amount,
                 payment.Currency,
-                payment.CreatedAt,
-            };
+                payment.CreatedAt
+            );
             var payload = JsonSerializer.Serialize(evt);
             await _outboxWriter.EnqueueAsync("PaymentRequested", payload, ct);
 
