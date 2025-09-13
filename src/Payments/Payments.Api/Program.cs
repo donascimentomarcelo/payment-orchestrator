@@ -1,3 +1,4 @@
+using BuildingBlocks.Messaging;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Payments.Application.Abstractions;

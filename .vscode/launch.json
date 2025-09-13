@@ -2,12 +2,26 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Payments.Api",
+      "name": "Payments.Api",
       "type": "coreclr",
       "request": "launch",
       "program": "${workspaceFolder}/src/Payments/Payments.Api/bin/Debug/net9.0/Payments.Api.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/Payments/Payments.Api",
+      "preLaunchTask": "build",
+      "justMyCode": true,
+      "requireExactSource": false,
+      "stopAtEntry": false,
+      "console": "integratedTerminal",
+      "logging": { "moduleLoad": true }
+    },
+    {
+      "name": "Routing Engine.Api",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/Routing/Routing.Engine.Api/bin/Debug/net9.0/Routing.Engine.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/Routing/Routing.Engine.Api",
       "preLaunchTask": "build",
       "justMyCode": true,
       "requireExactSource": false,

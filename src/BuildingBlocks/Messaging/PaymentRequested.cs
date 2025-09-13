@@ -8,7 +8,9 @@ namespace BuildingBlocks.Messaging
 {
     public record PaymentRequested(
         [property: JsonPropertyName("paymentId")] Guid PaymentId,
-        [property: JsonPropertyName("amount")] decimal Amount,
+        [property: JsonPropertyName("amount")]
+        [property: JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
+            decimal Amount,
         [property: JsonPropertyName("currency")] string Currency,
         [property: JsonPropertyName("requestedAtUtc")] DateTime RequestedAtUtc
     );

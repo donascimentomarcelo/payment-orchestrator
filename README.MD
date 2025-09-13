@@ -32,3 +32,7 @@ docker exec -it redpanda rpk topic create payments.requested payments.provider.c
 dotnet add src/Payments/Payments.Api/Payments.Api.csproj reference src/Payments/Payments.Domain/Payments.Domain.csproj
 dotnet add src/Payments/Payments.Application/Payments.Application.csproj reference src/Payments/Payments.Domain/Payments.Domain.csproj
 dotnet add src/Payments/Payments.Infrastructure/Payments.Infrastructure.csproj reference src/Payments/Payments.Domain/Payments.Domain.csproj
+
+# clean debug
+
+- dotnet clean && dotnet build -c Debug
