@@ -28,6 +28,20 @@
       "stopAtEntry": false,
       "console": "integratedTerminal",
       "logging": { "moduleLoad": true }
+    },
+    {
+      "name": "Provider Fake",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/Providers/Providers.Fake.Adapter/bin/Debug/net9.0/Providers.Fake.Adapter.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/Providers/Providers.Fake.Adapter",
+      "preLaunchTask": "build",
+      "justMyCode": true,
+      "requireExactSource": false,
+      "stopAtEntry": false,
+      "console": "integratedTerminal",
+      "logging": { "moduleLoad": true }
     }
   ]
 }
