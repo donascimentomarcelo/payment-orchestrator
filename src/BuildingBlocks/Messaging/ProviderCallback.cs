@@ -10,6 +10,6 @@ namespace BuildingBlocks.Messaging
         [property: JsonPropertyName("paymentId")] Guid PaymentId,
         [property: JsonPropertyName("provider")] string Provider,
         [property: JsonPropertyName("status")] string Status,
-        [property: JsonPropertyName("requestedAtUtc")] DateTime ReceivedAtUtc
+        [property: JsonPropertyName("receivedAtUtc")] DateTime ReceivedAtUtc
     );
 }

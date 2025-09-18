@@ -42,6 +42,20 @@
       "stopAtEntry": false,
       "console": "integratedTerminal",
       "logging": { "moduleLoad": true }
+    },
+    {
+      "name": "Webhook",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/Webhook/Webhook.Receiver.Api/bin/Debug/net9.0/Webhook.Receiver.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/Webhook/Webhook.Receiver.Api",
+      "preLaunchTask": "build",
+      "justMyCode": true,
+      "requireExactSource": false,
+      "stopAtEntry": false,
+      "console": "integratedTerminal",
+      "logging": { "moduleLoad": true }
     }
   ]
 }
