@@ -27,6 +27,10 @@ namespace Routing.Engine.Application.UseCases.ChooseProvider
                 msg.Currency,
                 msg.RequestedAtUtc
             );
+            logger.LogInformation(
+                "Routing event to publish at payments.provider.chosen ={chosen}",
+                chosen
+            );
             await producer.Produce(chosen, context.CancellationToken);
         }
     }

@@ -6,56 +6,40 @@
       "type": "coreclr",
       "request": "launch",
       "program": "${workspaceFolder}/src/Payments/Payments.Api/bin/Debug/net9.0/Payments.Api.dll",
-      "args": [],
       "cwd": "${workspaceFolder}/src/Payments/Payments.Api",
-      "preLaunchTask": "build",
-      "justMyCode": true,
-      "requireExactSource": false,
-      "stopAtEntry": false,
-      "console": "integratedTerminal",
-      "logging": { "moduleLoad": true }
+      "preLaunchTask": "build-payments"
     },
     {
       "name": "Routing Engine.Api",
       "type": "coreclr",
       "request": "launch",
       "program": "${workspaceFolder}/src/Routing/Routing.Engine.Api/bin/Debug/net9.0/Routing.Engine.Api.dll",
-      "args": [],
       "cwd": "${workspaceFolder}/src/Routing/Routing.Engine.Api",
-      "preLaunchTask": "build",
-      "justMyCode": true,
-      "requireExactSource": false,
-      "stopAtEntry": false,
-      "console": "integratedTerminal",
-      "logging": { "moduleLoad": true }
+      "preLaunchTask": "build-routing"
     },
     {
       "name": "Provider Fake",
       "type": "coreclr",
       "request": "launch",
       "program": "${workspaceFolder}/src/Providers/Providers.Fake.Adapter/bin/Debug/net9.0/Providers.Fake.Adapter.dll",
-      "args": [],
       "cwd": "${workspaceFolder}/src/Providers/Providers.Fake.Adapter",
-      "preLaunchTask": "build",
-      "justMyCode": true,
-      "requireExactSource": false,
-      "stopAtEntry": false,
-      "console": "integratedTerminal",
-      "logging": { "moduleLoad": true }
+      "preLaunchTask": "build-provider-fake"
     },
     {
       "name": "Webhook",
       "type": "coreclr",
       "request": "launch",
       "program": "${workspaceFolder}/src/Webhook/Webhook.Receiver.Api/bin/Debug/net9.0/Webhook.Receiver.Api.dll",
-      "args": [],
       "cwd": "${workspaceFolder}/src/Webhook/Webhook.Receiver.Api",
-      "preLaunchTask": "build",
-      "justMyCode": true,
-      "requireExactSource": false,
-      "stopAtEntry": false,
-      "console": "integratedTerminal",
-      "logging": { "moduleLoad": true }
+      "preLaunchTask": "build-webhook"
+    },
+    {
+      "name": "Stripe Provider",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/Providers/Providers.Stripe.Adapter/bin/Debug/net9.0/Providers.Stripe.Adapter.dll",
+      "cwd": "${workspaceFolder}/src/Providers/Providers.Stripe.Adapter",
+      "preLaunchTask": "build-stripe"
     }
   ]
 }

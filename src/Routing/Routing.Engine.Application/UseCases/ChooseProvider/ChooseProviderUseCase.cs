@@ -20,7 +20,14 @@ namespace Routing.Engine.Application.UseCases.ChooseProvider
         )
         {
             var provider = _strategy.ChooseProvider(amount, currency);
-            return new ProviderChosen(paymentId, provider, DateTime.UtcNow);
+            var kafkaEvent = new ProviderChosen(
+                paymentId,
+                provider,
+                currency,
+                amount,
+                DateTime.UtcNow
+            );
+            return kafkaEvent;
         }
     }
 }

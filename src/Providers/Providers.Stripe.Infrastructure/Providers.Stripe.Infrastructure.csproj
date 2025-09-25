@@ -1,17 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <ProjectReference Include="..\Routing.Engine.Domain\Routing.Engine.Domain.csproj" />
         <ProjectReference Include="..\..\BuildingBlocks\BuildingBlocks.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="MassTransit.Kafka" Version="8.5.2" />
+        <PackageReference Include="MassTransit" Version="8.5.2" />
+        <PackageReference Include="MassTransit.Kafka" Version="8.5.2" />
+        <PackageReference Include="Stripe.net" Version="48.5.0" />
     </ItemGroup>
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Optimize>false</Optimize>
         <DebugType>portable</DebugType>
-        <DebugSymbols>true</DebugSymbols>
+        <Optimize>false</Optimize>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
     </PropertyGroup>
 </Project>
