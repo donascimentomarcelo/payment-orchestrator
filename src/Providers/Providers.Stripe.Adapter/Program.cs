@@ -4,6 +4,8 @@ using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
+DotNetEnv.Env.Load();
+
 var apiKey =
     Environment.GetEnvironmentVariable("STRIPE_API_KEY")
     ?? builder.Configuration["Stripe:ApiKey"]
@@ -15,8 +17,6 @@ if (string.IsNullOrWhiteSpace(apiKey))
 {
     Console.WriteLine("WARNING: STRIPE_API_KEY not set. Set env STRIPE_API_KEY=sk_test_...");
 }
-
-StripeConfiguration.ApiKey = apiKey;
 
 builder.Services.AddSingleton(new StripeClient(apiKey));
 builder.Services.AddSingleton<PaymentIntentService>();
@@ -63,8 +63,6 @@ builder.Services.AddMassTransit(x =>
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
-DotNetEnv.Env.Load();
 
 var app = builder.Build();
 
