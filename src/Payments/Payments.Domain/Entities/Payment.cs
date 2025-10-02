@@ -27,5 +27,9 @@ namespace Payments.Domain
             Status = PaymentStatus.Requested;
             CreatedAt = DateTime.UtcNow;
         }
+
+        public void MarkAuthorized() => Status = PaymentStatus.Authorized;
+
+        public void MarkFailed() => Status = PaymentStatus.Failed;
     }
 }

@@ -3,6 +3,7 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Payments.Application.Abstractions;
 using Payments.Application.UseCases.CreatePayment;
+using Payments.Application.UseCases.ProcessCallback;
 using Payments.Infrastructure.Messaging;
 using Payments.Infrastructure.Outbox;
 using Payments.Infrastructure.Persistence;
@@ -22,14 +23,26 @@ builder.Services.AddMassTransit(x =>
 {
     x.SetKebabCaseEndpointNameFormatter();
 
+    x.AddConsumer<ProviderCallbackConsumer>();
+
     x.UsingInMemory((ct, cf) => { });
     x.AddRider(rider =>
     {
-        rider.AddProducer<BuildingBlocks.Messaging.PaymentRequested>("payments.requested");
+        rider.AddProducer<PaymentRequested>("payments.requested");
+        rider.AddConsumer<ProviderCallbackConsumer>();
         rider.UsingKafka(
             (ctx, k) =>
             {
                 k.Host("localhost:19092");
+                k.TopicEndpoint<ProviderCallback>(
+                    "payments.provider.callback",
+                    "payments-api",
+                    e =>
+                    {
+                        e.ConfigureConsumer<ProviderCallbackConsumer>(ctx);
+                        e.AutoOffsetReset = Confluent.Kafka.AutoOffsetReset.Earliest;
+                    }
+                );
             }
         );
     });
@@ -41,6 +54,7 @@ builder.Services.AddScoped<ICreatePaymentUseCase, CreatePaymentUseCase>();
 builder.Services.AddScoped<IPaymentRepository, EfPaymentRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IOutboxWriter, EfOutboxWriter>();
+builder.Services.AddScoped<IProcessProviderCallbackUseCase, ProcessProviderCallbackUseCase>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
