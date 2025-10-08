@@ -31,5 +31,17 @@ namespace Payments.Domain
         public void MarkAuthorized() => Status = PaymentStatus.Authorized;
 
         public void MarkFailed() => Status = PaymentStatus.Failed;
+
+        public void MarkCaptured()
+        {
+            if (Status == PaymentStatus.Authorized)
+                Status = PaymentStatus.Captured;
+        }
+
+        public void MarkRefunded()
+        {
+            if (Status == PaymentStatus.Authorized || Status == PaymentStatus.Captured)
+                Status = PaymentStatus.Refunded;
+        }
     }
 }

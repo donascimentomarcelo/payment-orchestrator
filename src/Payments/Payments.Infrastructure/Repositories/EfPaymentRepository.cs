@@ -20,8 +20,6 @@ namespace Payments.Infrastructure.Repositories
         }
 
         public Task<Payment?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
-            _context
-                .Payments.AsNoTracking()
-                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+            _context.Payments.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
 }

@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Payments.Api.DTOs;
 using Payments.Application.Abstractions;
+using Payments.Application.UseCases.CapturePayment;
 using Payments.Application.UseCases.CreatePayment;
+using Payments.Application.UseCases.RefundPayment;
 
 namespace Payments.Api.Controllers
 {
@@ -57,6 +59,28 @@ namespace Payments.Api.Controllers
                         payment.Status,
                     }
                 );
+        }
+
+        [HttpPost("{id}/capture")]
+        public async Task<IActionResult> Capture(
+            Guid id,
+            [FromServices] ICapturePaymentUseCase useCase,
+            CancellationToken ct
+        )
+        {
+            await useCase.ExecuteAsync(id, ct);
+            return Accepted(new { paymentId = id, action = "capture-requested" });
+        }
+
+        [HttpPost("{id}/refund")]
+        public async Task<IActionResult> Refund(
+            Guid id,
+            [FromServices] IRefundPaymentUseCase useCase,
+            CancellationToken ct
+        )
+        {
+            await useCase.ExecuteAsync(id, ct);
+            return Accepted(new { paymentId = id, action = "refund-requested" });
         }
     }
 }

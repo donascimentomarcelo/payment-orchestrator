@@ -7,7 +7,24 @@
       "request": "launch",
       "program": "${workspaceFolder}/src/Payments/Payments.Api/bin/Debug/net9.0/Payments.Api.dll",
       "cwd": "${workspaceFolder}/src/Payments/Payments.Api",
-      "preLaunchTask": "build-payments"
+      "preLaunchTask": "build-payments",
+      "postDebugTask": "build-payments",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Payments.Api (Watch Mode)",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/Payments/Payments.Api/bin/Debug/net9.0/Payments.Api.dll",
+      "cwd": "${workspaceFolder}/src/Payments/Payments.Api",
+      "preLaunchTask": "watch-payments",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "console": "integratedTerminal"
     },
     {
       "name": "Routing Engine.Api",
@@ -15,7 +32,24 @@
       "request": "launch",
       "program": "${workspaceFolder}/src/Routing/Routing.Engine.Api/bin/Debug/net9.0/Routing.Engine.Api.dll",
       "cwd": "${workspaceFolder}/src/Routing/Routing.Engine.Api",
-      "preLaunchTask": "build-routing"
+      "preLaunchTask": "build-routing",
+      "postDebugTask": "build-routing",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Routing Engine.Api (Watch Mode)",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/Routing/Routing.Engine.Api/bin/Debug/net9.0/Routing.Engine.Api.dll",
+      "cwd": "${workspaceFolder}/src/Routing/Routing.Engine.Api",
+      "preLaunchTask": "watch-routing",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "console": "integratedTerminal"
     },
     {
       "name": "Provider Fake",
@@ -23,7 +57,12 @@
       "request": "launch",
       "program": "${workspaceFolder}/src/Providers/Providers.Fake.Adapter/bin/Debug/net9.0/Providers.Fake.Adapter.dll",
       "cwd": "${workspaceFolder}/src/Providers/Providers.Fake.Adapter",
-      "preLaunchTask": "build-provider-fake"
+      "preLaunchTask": "build-provider-fake",
+      "postDebugTask": "build-provider-fake",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "console": "integratedTerminal"
     },
     {
       "name": "Webhook",
@@ -31,7 +70,12 @@
       "request": "launch",
       "program": "${workspaceFolder}/src/Webhook/Webhook.Receiver.Api/bin/Debug/net9.0/Webhook.Receiver.Api.dll",
       "cwd": "${workspaceFolder}/src/Webhook/Webhook.Receiver.Api",
-      "preLaunchTask": "build-webhook"
+      "preLaunchTask": "build-webhook",
+      "postDebugTask": "build-webhook",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "console": "integratedTerminal"
     },
     {
       "name": "Stripe Provider",
@@ -39,7 +83,26 @@
       "request": "launch",
       "program": "${workspaceFolder}/src/Providers/Providers.Stripe.Adapter/bin/Debug/net9.0/Providers.Stripe.Adapter.dll",
       "cwd": "${workspaceFolder}/src/Providers/Providers.Stripe.Adapter",
-      "preLaunchTask": "build-stripe"
+      "preLaunchTask": "build-stripe",
+      "postDebugTask": "build-stripe",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "console": "integratedTerminal"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "All Services (Development)",
+      "configurations": [
+        "Payments.Api",
+        "Routing Engine.Api",
+        "Provider Fake",
+        "Webhook",
+        "Stripe Provider"
+      ],
+      "preLaunchTask": "build-solution",
+      "stopAll": true
     }
   ]
 }
